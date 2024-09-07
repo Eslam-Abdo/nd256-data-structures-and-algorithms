@@ -19,4 +19,7 @@ Print messages:
 "First record of texts, <incoming number> texts <answering number> at time <time>"
 "Last record of calls, <incoming number> calls <answering number> at time <time>, lasting <during> seconds"
 """
-
+incoming_number, answering_number, time = texts[0]
+print(f"First record of texts, <{incoming_number}> texts <{answering_number}> at time <{time}>")
+incoming_number, answering_number, time, during = calls[-1]
+print(f"Last record of calls, <{incoming_number}> calls <{answering_number}> at time <{time}>, lasting <{during}> seconds")
