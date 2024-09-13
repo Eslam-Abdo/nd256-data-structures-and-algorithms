@@ -1,3 +1,33 @@
+"""
+1_lru_cache.py
+
+For our first problem, the goal will be to design a data structure known as a
+Least Recently Used (LRU) cache. An LRU cache is a type of cache in which we remove
+the least recently used entry when the cache memory reaches its limit.
+For the current problem, consider both get and set operations as a use operation.
+
+Your job is to ** use an appropriate data structure(s) to implement the cache **
+
+    In case of a cache hit, your get() operation should return the appropriate value.
+    In case of a cache miss, your get() should return -1.
+    While putting an element in the cache, your put() / set() operation must insert the
+    element. If the cache is full, you must write code that removes the least recently
+    used entry first and then insert the element.
+
+All operations must take O(1) time.
+
+For the current problem, you can consider the size of cache = 5
+
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
+Uses Pythons's OrderedDict as cache, which keeps track of the order that
+entries are inserted. Deleting an entry and reinserting it will move it to the end.
+If the value of a key is changed, the key position does not change.
+
+Reference: https://docs.python.org/2/library/collections.html#collections.OrderedDict
+
+Somewhat related implementation methodology (not in python)
+https://www.geeksforgeeks.org/lru-cache-implementation/
+"""
 from collections import OrderedDict
 from typing import Any, Optional
 
@@ -22,8 +52,16 @@ class LRU_Cache:
         capacity : int
             The maximum number of items the cache can hold.
         """
-        pass
+        if capacity < 1:
+            print('LRUCache should have capacity > 0')
+            return
+        self.capacity = capacity
+        self.element_num = 0
+        self.cache = OrderedDict()
 
+    def get_capacity(self):
+        return self.capacity
+    
     def get(self, key: int) -> Optional[Any]:
         """
         Get the value of the key if the key exists in the cache, otherwise return -1.
@@ -38,7 +76,12 @@ class LRU_Cache:
         Optional[Any]
             The value associated with the key if it exists, otherwise -1.
         """
-        pass
+        if key in self.cache.keys():
+            value = self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        else:
+            return -1
 
     def set(self, key: int, value: Any) -> None:
         """
@@ -53,7 +96,15 @@ class LRU_Cache:
         value : Any
             The value to be associated with the key.
         """
-        pass
+        if key in self.cache.keys():
+            self.cache.pop(key)
+            self.cache[key] = value
+        else:
+            if len(self.cache) >= self.capacity:
+                self.cache.popitem(False)
+                self.element_num -= 1
+            self.cache[key] = value
+            self.element_num += 1
 
 
 if __name__ == '__main__':

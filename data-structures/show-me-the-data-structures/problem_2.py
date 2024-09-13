@@ -21,7 +21,25 @@ def find_files(suffix: str, path: str) -> list[str]:
     list[str]
         A list of file paths that end with the given suffix.
     """
-    pass
+    # real_path = os.getcwd()
+    # real_path = os.path.dirname(os.path.realpath(__file__))
+
+    # path = os.path.join(real_path,path[2:])
+    main_dir_queue = os.listdir(path)
+    main_dir_queue = [path + '/' + i for i in main_dir_queue]
+    result = []
+    
+    while len(main_dir_queue) > 0:
+        file = main_dir_queue.pop(0)
+        if os.path.isdir(file):
+            files = os.listdir(os.path.join(file))
+            files = [file + '/' + i for i in files]
+            # print(files)
+            main_dir_queue += files
+        elif os.path.isfile(file) :
+            if file.endswith(suffix):
+                result.append(file)
+    return result
 
 
 if __name__ == "__main__":

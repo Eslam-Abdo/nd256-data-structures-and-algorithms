@@ -122,10 +122,27 @@ def union(llist_1: LinkedList, llist_2: LinkedList) -> LinkedList:
         A new linked list containing all unique elements from both input linked lists.
     """
     # Use a set to store all unique elements
-    pass
+    result = LinkedList()
+    unions = set()
 
+    if llist_1 is None and llist_2 is None:
+        return None
+
+    head = llist_1.head
+    while head is not None:
+        unions.add(head.value)
+        head = head.next
+
+    head = llist_2.head
+    while head is not None:
+        unions.add(head.value)
+        head = head.next
+    
     # Create a new linked list to store the union
-    pass
+    unions = sorted(unions)
+    for i in unions:
+        result.append(i)
+    return result
 
 def intersection(llist_1: LinkedList, llist_2: LinkedList) -> LinkedList:
     """
@@ -144,13 +161,33 @@ def intersection(llist_1: LinkedList, llist_2: LinkedList) -> LinkedList:
         A new linked list containing all elements that are present in both input linked lists.
     """
     # Use sets to find the intersection
-    pass
+    intersections = LinkedList()
+    set1 = set()
+    set2 = set()
+
+    if llist_1 is None and llist_2 is None:
+        return None
+
+    current_1 = llist_1.head
+    while current_1 is not None:
+        set1.add(current_1.value)
+        current_1 = current_1.next
+
+    current_2 = llist_2.head
+    while current_2 is not None:
+        set2.add(current_2.value)
+        current_2 = current_2.next
 
     # Find the intersection of both sets
-    pass
+    set12 = set1.intersection(set2)
 
     # Create a new linked list to store the intersection
-    pass
+    if len(set12) == 0:
+        return None
+    for i in set12:
+        intersections.append(i)
+    return intersections
+
 
 if __name__ == "__main__":
     ## Test case 1
