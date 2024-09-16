@@ -22,7 +22,21 @@ def sqrt(number: int) -> int:
     Returns:
     int: Floored square root
     """
-    pass
+    if number ==1 or number == 0:
+        return number
+    start = 1
+    end = number
+    while start <= end:
+        mid = (start + end) // 2
+        
+        if (mid * mid) <= number and (mid+1)*(mid+1) > number:
+            return mid
+        elif (mid * mid) < number:
+            start = mid +1 
+        else:
+            end = mid -1
+
+
 
 if __name__ == "__main__":
     # Test cases

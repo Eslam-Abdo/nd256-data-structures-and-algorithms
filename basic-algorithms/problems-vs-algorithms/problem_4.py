@@ -1,5 +1,5 @@
 """
-Problem 3: Rearrange Array Elements
+Problem 4: Dutch National Flag Problem
 
 Given an input array consisting on only 0, 1, and 2, sort the array in a single 
 traversal. You're not allowed to use any sorting function that Python provides.
@@ -26,7 +26,24 @@ def sort_012(input_list: list[int]) -> list[int]:
     Returns:
     list[int]: The sorted list with all 0s, followed by all 1s, and then all 2s.
     """
-    pass
+    next_pos_0 = 0
+    next_pos_2 = len(input_list) - 1
+    index = 0
+
+    while index < next_pos_2:
+        if input_list[index] == 0:
+            input_list[index] = input_list[next_pos_0]
+            input_list[next_pos_0] = 0
+            index += 1
+            next_pos_0 += 1
+        elif input_list[index] == 2:
+            input_list[index] = input_list[next_pos_2]
+            input_list[next_pos_2] = 2
+            next_pos_2 -= 1
+        else:
+            index += 1
+    return input_list
+
 
 def test_function(test_case: list[list[int]]) -> None:
     """
